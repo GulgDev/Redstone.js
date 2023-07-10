@@ -14,7 +14,7 @@ export class Redstone {
         this.#blocks.remove(world_block);
         break;
       }
-    this.#blocks.push(block);
+    this.#blocks.push(new block(this, x, y, z));
   }
 
   getBlock(x, y, z) {
@@ -33,6 +33,6 @@ export class Redstone {
 
   #tick() {
     foreach (let worldBlock of this.#blocks)
-      worldBlock.tick();
+      worldBlock.update();
   }
 }
