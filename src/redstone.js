@@ -7,7 +7,7 @@ export class Redstone {
   
   constructor(canvas) {
     this.#canvas = canvas;
-    this.#world = World();
+    this.#world = new World();
   }
 
   setBlock(x, y, z, block) {
