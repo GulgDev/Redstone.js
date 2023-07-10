@@ -1,26 +1,24 @@
-import {World} from "./world/world.js"; 
-
 export class Redstone {
+  #blocks;
   #canvas;
   #tickInterval;
-  #world;
   
   constructor(canvas) {
     this.#canvas = canvas;
-    this.#world = new World();
+    this.#blocks = [];
   }
 
   setBlock(x, y, z, block) {
-    for (let worldBlock in this.#world.blocks)
+    for (let worldBlock in this.#blocks)
       if (worldBlock.x == x && worldBlock.y == y && worldBlock.z == z) {
-        this.#world.blocks.remove(world_block);
+        this.#blocks.remove(world_block);
         break;
       }
-    this.#world.blocks.push(block);
+    this.#blocks.push(block);
   }
 
   getBlock(x, y, z) {
-    for (let worldBlock in this.#world.blocks)
+    for (let worldBlock in this.#blocks)
       if (worldBlock.x == x && worldBlock.y == y && worldBlock.z == z)
         return worldBlock;
   }
@@ -34,6 +32,7 @@ export class Redstone {
   }
 
   #tick() {
-    this.world.tick();
+    foreach (let worldBlock of this.#blocks)
+      worldBlock.tick();
   }
 }
