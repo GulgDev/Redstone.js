@@ -8,10 +8,20 @@ export class Block {
 }
 
 export class RedstoneWire {
+  constructor(...) {
+    base(...);
+    this.power = 0;
+  }
+  
   update(redstone) {
-    redstone.updateBlock(this.x, this.y, this.z + 1);
-    redstone.updateBlock(this.x, this.y, this.z - 1);
-    redstone.updateBlock(this.x + 1, this.y, this.z);
-    redstone.updateBlock(this.x - 1, this.y, this.z);
+    this.#updatePowerStrength(this.x, this.y, this.z);
+  }
+
+  #updatePowerStrength(x, y, z) {
+    let block = this.redstone.getBlock(x, y, z);
+    if (!(block instanceof RedstoneWire))
+      block.power = 4;
+    foreach (let [neighborX, neighborZ] : [[x, z + 1], [x, z - 1], [x + 1, z], [x - 1, z]])
+      this.#updatePowerStrength(neighborX, y, neighborZ);
   }
 }
